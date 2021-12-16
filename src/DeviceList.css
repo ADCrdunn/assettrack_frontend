@@ -1,0 +1,38 @@
+.device-list {
+    flex: 0.25;
+    overflow-y: scroll;
+}
+
+.device-row {
+    border-bottom: rgb(174, 174, 174) 0.5px solid;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.device-row > div > p {
+    display: block;
+    text-align: start;
+}
+
+.device-row-header {
+    font-weight: 600;
+}
+
+.device-row-imei {
+    color: gray;
+    font-size: smaller;
+    line-height: 2em;
+}
+
+.device-row-body-wrap {
+    display: flex;
+}
+
+.device-row-body {
+    padding-left: 10px;
+    color: gray;
+    font-size: smaller;
+    line-height: 2em;
+    text-align: left;
+    flex: 0.8;
+}
