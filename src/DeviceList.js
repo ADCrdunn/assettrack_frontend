@@ -1,25 +1,30 @@
 import "./DeviceList.css"
 import Button from '@mui/material/Button';
+import Spinner from '@mui/material/CircularProgress';
 
-const DeviceRow = ({ device, setPage, setDev }) => {
+function formatCoordinates(coord) {
+    return `${coord.lat}, ${coord.lng}`;
+}
+
+const DeviceRow = ({ id, idx, device, setPage, setDev }) => {
 
     return (
-        <div className="device-row">
+        <div className="device-row" key={id}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <p className="device-row-header">{device.name}</p>
-                <p className="device-row-imei">IMEI{device.imei}</p>
+                <p className="device-row-header">Device {idx+1}</p>
+                <p className="device-row-imei">{device.imei}</p>
             </div>
             <div className="device-row-body-wrap">
                 <div className="device-row-body">
-                    <p>Location: ...</p>
-                    <p>Altitude: ...</p>
+                    <p>Location: {formatCoordinates(device)}</p>
+                    <p>Altitude: {device.alt} m</p>
                 </div>
                 <div style={{ flex: 0.2, justifyContent: "center", display: "flex", alignItems: "center" }}>
                     <Button variant="contained" size="small"
                         onClick={() => {
                             setDev(device);
                             setPage("History");
-                    }}>
+                        }}>
                         HISTORY
                     </Button>
                 </div>
@@ -28,12 +33,26 @@ const DeviceRow = ({ device, setPage, setDev }) => {
     );
 }
 
-const DeviceList = ({ setPage, setDev, devices }) => {
+const NotReadyElm = ({error}) => {
+    return (
+        <div style={{ display: "flex", justifyContent: "center", alignContent: "center", alignItems: "center", height: "100%" }}>
+            {
+                error == null ? <Spinner /> : <p style={{color: "red"}}>ERROR: {error}</p>
+            }
+        </div>
+    )
+}
+
+const DeviceList = ({ setPage, setDev, devices, error }) => {
     return (
         <div className="device-list">
-            <div className="device-list-inner-wrap">
-                {devices.map((dev) => <DeviceRow device={dev} setPage={setPage} setDev={setDev}/>)}
-            </div>
+            {
+                devices == null ? <NotReadyElm error={error}/> : (
+                    <div className="device-list-inner-wrap">
+                        {devices.map((dev, idx) => <DeviceRow key={idx+""} idx={idx} device={dev} setPage={setPage} setDev={setDev} />)}
+                    </div>
+                )
+            }
         </div>
     )
 }
