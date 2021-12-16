@@ -89,7 +89,7 @@ const MapWrap = (props) => {
             )
         };
         reqDevices();
-        setInterval(reqDevices, 10000);
+        setInterval(reqDevices, 120000);
     }, [])
 
     // let centerLoc = numLoads == 1 && devices && devices.length ? devices[0] : null;

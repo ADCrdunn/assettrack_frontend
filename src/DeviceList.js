@@ -6,12 +6,12 @@ function formatCoordinates(coord) {
     return `${coord.lat}, ${coord.lng}`;
 }
 
-const DeviceRow = ({ id, idx, device, setPage, setDev }) => {
+const DeviceRow = ({ device, setPage, setDev }) => {
 
     return (
-        <div className="device-row" key={id}>
+        <div className="device-row" key={device.id}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <p className="device-row-header">Device {idx+1}</p>
+                <p className="device-row-header">Device {device.id}</p>
                 <p className="device-row-imei">{device.imei}</p>
             </div>
             <div className="device-row-body-wrap">
@@ -49,7 +49,7 @@ const DeviceList = ({ setPage, setDev, devices, error }) => {
             {
                 devices == null ? <NotReadyElm error={error}/> : (
                     <div className="device-list-inner-wrap">
-                        {devices.map((dev, idx) => <DeviceRow key={idx+""} idx={idx} device={dev} setPage={setPage} setDev={setDev} />)}
+                        {devices.map((dev, idx) => <DeviceRow key={idx+""} device={dev} setPage={setPage} setDev={setDev} />)}
                     </div>
                 )
             }
